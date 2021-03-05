@@ -3,6 +3,7 @@
 *.swp
 *.h5
 *.gz
+*.DS_Store
 *~
 
 .ipynb_checkpoints
