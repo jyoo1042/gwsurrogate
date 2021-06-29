@@ -1526,11 +1526,11 @@ class SurrogateEvaluator(object):
                 for mode in mode_list:
                     if mode not in self.available_modes:
                         non_list.append(mode)
-                        if len(non_list) > 0:
-                            str1 = str(non_list)
-                            str2 = str(self.available_modes)
-                        msg = str1 + ' are not available in this model. \n' + 'available modes are: '  + str2
-                        raise Exception(msg)
+                if len(non_list) > 0:
+                    str1 = str(non_list)
+                    str2 = str(self.available_modes)
+                    msg = str1 + ' are not available in this model. \n' + 'available modes are: '  + str2
+                    raise Exception(msg)
 
     def _mode_sum(self, h_modes, theta, phi, fake_neg_modes=False):
         """ Sums over h_modes at a given theta, phi.
