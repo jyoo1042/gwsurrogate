@@ -1976,8 +1976,9 @@ In the __call__ method, x must have format x = [q, chi1z, chi2z].
         # Format is [qMax, chiMax].
         soft_param_lims = [8.01, 0.801]
         hard_param_lims = [10.01, 1]
-        available_modes = [(2,2), (2,1), (2,0), (3,3), (3,2), (3,1), (3,0),\
-        (4,4), (4,3), (4,2),(5,5)]
+        available_modes = [(2,2), (2,-2), (2,1), (2,-1), (2,0), \
+        (3,3), (3,-3), (3,2), (3,-2), (3,1), (3,-1), (3,0),\
+        (4,4), (4,-4), (4,3), (4,-3), (4,2), (4,-2), (5,5), (5,-5)]
         super(NRHybSur3dq8, self).__init__(self.__class__.__name__, \
             domain_type, keywords, soft_param_lims, hard_param_lims, available_modes)
 
@@ -2056,8 +2057,9 @@ In the __call__ method, x must have format x = [q, chi1z, chi2z].
         # Format is [qMax, chiMax].
         soft_param_lims = [8.01, 0.701]
         hard_param_lims = [8.01, 0.701]
-        available_modes = [(2,2), (2,1), (2,0), (3,3), (3,2), (3,1), (3,0),\
-        (4,4), (4,3), (4,2),(5,5)]
+        available_modes = [(2,2), (2,-2), (2,1), (2,-1), (2,0), \
+        (3,3), (3,-3), (3,2), (3,-2), (3,1), (3,-1), (3,0),\
+        (4,4), (4,-4), (4,3), (4,-3), (4,2), (4,-2), (5,5), (5,-5)]
         super(NRHybSur3dq8Tidal, self).__init__(self.__class__.__name__, \
             domain_type, keywords, soft_param_lims, hard_param_lims, available_modes)
 
