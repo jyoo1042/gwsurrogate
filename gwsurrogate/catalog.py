@@ -115,6 +115,18 @@ _surrogate_world['NRHybSur3dq8'] = \
   '''https://journals.aps.org/prd/abstract/10.1103/PhysRevD.99.064045''',
   'b42cd577f497b1db3da14f1e4ee0ccd1')
 
+_surrogate_world['NRHybSur3dq8_CCE'] = \
+  surrogate_info(\
+  'https://zenodo.org/record/3348115/files/NRHybSur3dq8.h5',
+  '''CCE Surrogate model for aligned-spin binary black holes with mass ratios q<=8
+  and spin magnitudes <=0.8. The model is trained on NR (CCE) waveforms that have been
+  hybridized using EOB/PN and spans the entire LIGO frequency band. This model
+  is  presented in FIXME, arxiv:FIXME. Available modes are
+  [(2,2), (2,1), (2,0), (3,3), (3,2), (3,1), (3,0), (4,4), (4,3), (4,2), (4,1),
+   (4,0), and (5,5)]. The m<0 modes are deduced from the m>0 modes.''',
+  '''https://journals.aps.org/prd/abstract/10.1103/PhysRevD.99.064045''',
+  'b42cd577f497b1db3da14f1e4ee0ccd1')
+
 _surrogate_world['NRHybSur2dq15'] = \
   surrogate_info(\
   'https://zenodo.org/record/6726994/files/NRHybSur2dq15.h5',
