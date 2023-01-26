@@ -609,7 +609,7 @@ class AlignedSpinCoOrbitalFrameSurrogate(ManyFunctionSurrogate):
 
     def __init__(self, name=None, domain=None, param_space=None, \
             phaseAlignIdx=None, TaylorT3_t_ref=None, \
-            coorb_mode_data={(2, 2): {}}
+            coorb_mode_data={(2, 2): {}, tapered_modes=None}
             ):
         """
         name:               A descriptive name for this surrogate.
@@ -683,6 +683,17 @@ class AlignedSpinCoOrbitalFrameSurrogate(ManyFunctionSurrogate):
         self.TaylorT3_t_ref = TaylorT3_t_ref
         self.TaylorT3_factor_without_eta = None
 
+        # list of modes that used tapered phase
+        # when defining/modelling coorbital frame data
+        # [[l,m], ...]
+        self.tapered_modes = tapered_modes
+
+        # sanity check
+        if not self.tapered_modes == None:
+            for l,m in self.tapered_modes:
+                if (l,m) not in self.mode_list:
+                    raise Exception('(%d,%d) mode no in mode list'%(l,m))
+
         super(AlignedSpinCoOrbitalFrameSurrogate, self).__init__(name,
                 domain, param_space, {}, many_function_components,
                 self.mode_type)
@@ -691,9 +702,10 @@ class AlignedSpinCoOrbitalFrameSurrogate(ManyFunctionSurrogate):
         self._h5_data_keys.append('mode_type')
         self._h5_data_keys.append('phaseAlignIdx')
         self._h5_data_keys.append('TaylorT3_t_ref')
+        self._h5_data_keys.append('tapered_phase')
 
     def _search_omega(self, omega22, omega_val):
-        """ Find closest index such taht omega22[index] = omega_val
+        """ Find closest index such that omega22[index] = omega_val
         """
         # find first index where omega22 > omega_val
         idx = np.where(omega22 > omega_val)[0][0]
@@ -849,7 +861,7 @@ class AlignedSpinCoOrbitalFrameSurrogate(ManyFunctionSurrogate):
             # that the after the realignment, the orbital phase at reference
             # frequency is 0.
             phi_22 += -phi_22[refIdx]
-
+       
         h_dict = {}
         for mode in mode_list:
             if mode == tuple([2, 2]):
@@ -865,9 +877,6 @@ class AlignedSpinCoOrbitalFrameSurrogate(ManyFunctionSurrogate):
                 h_coorb_lm = h_coorb_lm[initIdx:]
                 if do_interp:
                     h_coorb_lm = _splinterp_Cwrapper(timesM,domain,h_coorb_lm)
-
-                h_dict[mode] = h_coorb_lm * np.exp(-1j*m*phi_22/2.)
-
         return timesM, h_dict, None     # None is for dynamics
 
     def _set_TaylorT3_factor(self):
@@ -898,6 +907,36 @@ class AlignedSpinCoOrbitalFrameSurrogate(ManyFunctionSurrogate):
 
         return phi22_T3
 
+    def _taper_phase(t,phi,t0=50,ts=2):
+
+        """ Make the phase smoothly approach a constant value
+        by stitching smoothly asymptoting function 
+        that matches the phase and its slope at t=t0
+        ts sets the width of the asymptoting function
+        where higher value means slower asymptote.
+        The half-width of tanh function is roughly ~ 2 * ts
+        """
+
+        phi_new= phi.copy()
+        idx0 = np.argmin(abs(t-t0))
+
+        if t[idx0]>=t0:
+            idx0 -= 1
+
+        idx1 = np.argmin(abs(t-t0))
+
+        phi_grad = np.gradient(phi,t)
+        slope0 = phi_grad[idx1]
+
+        a = slope0*ts
+
+        asympt_f = a+a*np.tanh((t-t0)/ts)
+        asympt_f += (phi[idx1]- (a))
+
+        for i in range(len(t[idx1:])):
+            phi_new[idx1:][i] = asympt_f[idx1:][i]
+
+        return phi_new
 
     def __call__(self, x, fM_low=None, fM_ref=None, dtM=None,
             timesM=None, dfM=None, freqsM=None, mode_list=None, ellMax=None,
@@ -1003,6 +1042,13 @@ class AlignedSpinCoOrbitalFrameSurrogate(ManyFunctionSurrogate):
 
         h_coorb = {k: self._eval_sur(x, k) for k in mode_list \
                         if k != tuple([2,2])}
+
+        if not self.tapered_modes == None:
+            phi22 = h22[0]['phase']
+            phi22_tapered = self._taper_phase(self.domain,phi22)
+            for l,m in self.tapered_modes:
+                  h_coorb[(l,m)] *= np.exp(1j*m*(phi22-phi22_tapered)/2)
+            
 
         return self._coorbital_to_inertial_frame(h_coorb, h_22, \
             mode_list, dtM, timesM, fM_low, fM_ref, do_not_align)

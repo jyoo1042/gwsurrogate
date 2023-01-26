@@ -2298,7 +2298,7 @@ See the __call__ method on how to evaluate waveforms.
         # Format is [qMax, chiMax].
         soft_param_lims = [8.01, 0.801]
         hard_param_lims = [10.01, 1]
-        super(NRHybSur3dq8, self).__init__(self.__class__.__name__, \
+        super(NRHybSur3dq8_CCE, self).__init__(self.__class__.__name__, \
             domain_type, keywords, soft_param_lims, hard_param_lims)
 
     def _load_dimless_surrogate(self):
@@ -2474,7 +2474,7 @@ See the __call__ method on how to evaluate waveforms.
 ####       the default cases suitable for most people
 SURROGATE_CLASSES = {
     "NRHybSur3dq8": NRHybSur3dq8,
-    "NRHybSur3dq8_CCE": NRHybSur3dq8_CCE
+    "NRHybSur3dq8_CCE": NRHybSur3dq8_CCE,
     "NRHybSur2dq15": NRHybSur2dq15,
     "NRSur7dq4": NRSur7dq4,
     "NRHybSur3dq8Tidal": NRHybSur3dq8Tidal,
