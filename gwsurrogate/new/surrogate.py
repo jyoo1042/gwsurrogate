@@ -701,7 +701,8 @@ class AlignedSpinCoOrbitalFrameSurrogate(ManyFunctionSurrogate):
         self._h5_data_keys.append('mode_type')
         self._h5_data_keys.append('phaseAlignIdx')
         self._h5_data_keys.append('TaylorT3_t_ref')
-        self._h5_data_keys.append('tapered_modes')
+        if not self.tapered_modes == None:
+            self._h5_data_keys.append('tapered_modes')
 
     def _search_omega(self, omega22, omega_val):
         """ Find closest index such that omega22[index] = omega_val
