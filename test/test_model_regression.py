@@ -41,6 +41,7 @@ import numpy as np
 import gwsurrogate as gws
 from gwsurrogate.new import surrogate 
 import h5py, os, subprocess, time, warnings
+#import urllib.request
 
 
 import hashlib
@@ -191,7 +192,7 @@ def test_model_regression(generate_regression_data=False):
   this regression file will be downloaded. """
 
   if generate_regression_data:
-    h5_file = "model_regression_data.h5"
+    h5_file = "model_regression_data_new.h5"
     print("Generating regression data file... Make sure this step is done BEFORE making any code changes!\n")
     print(os.path.exists(h5_file))
     if os.path.exists(h5_file):
@@ -204,6 +205,7 @@ def test_model_regression(generate_regression_data=False):
       print("Downloading regression data...")
       # Old file (10/2022): https://www.dropbox.com/s/vxqsr7fjoffxm5w/model_regression_data.h5
       os.system('wget --directory-prefix=test https://www.dropbox.com/s/4zcse4ja5aw3n6s/model_regression_data.h5')
+      #urllib.request.urlretrieve("https://www.dropbox.com/s/4zcse4ja5aw3n6s/model_regression_data.h5","test/model_regression_data.h5")
       fp_regression = h5py.File("test/model_regression_data.h5",'r') 
     regression_hash = md5("test/model_regression_data.h5")
     print("hash of model_regression_data.h5 is ",regression_hash)
@@ -212,6 +214,7 @@ def test_model_regression(generate_regression_data=False):
   dont_test = [#"NRHybSur2dq15",
                #"BHPTNRSur1dq1e4",
                #"EMRISur1dq1e4",
+               "NRHybSur3dq8_CCE",
                "NRSur4d2s_TDROM_grid12", # 10 GB file
                "NRSur4d2s_FDROM_grid12", # 10 GB file
                #"SpEC_q1_10_NoSpin_linear_alt",
