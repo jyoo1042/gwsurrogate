@@ -53,7 +53,7 @@ import shutil
 
 original_regression_data = "model_regression_data.h5"
 extra_regression_data    = "model_regression_data_new.h5"
-new_model = "NRHybSur2dq15" # name of new model with regression data in fp_new but not fp_old
+new_model = "NRHybSur3dq8_CCE" # name of new model with regression data in fp_new but not fp_old
 
 shutil.copyfile(original_regression_data, "model_regression_data-original.h5")
 
