@@ -43,8 +43,11 @@ regression data.
 >>> python add_model_regression_data.py
 
 After running this step, model_regression_data.h5 should have the new model's
-regression data. And model_regression_data_new.h5 can be deleted
+regression data. 
 
+3) model_regression_data_new.h5 can be deleted
+4) run check_model_regression_data.py to confirm that your data has been 
+correctly added and the old data is unchanged.
 """
 
 import h5py
