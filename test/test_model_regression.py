@@ -219,7 +219,8 @@ def test_model_regression(generate_regression_data=False):
     except IOError:
       print("Downloading regression data...")
       # Old file (10/2022): https://www.dropbox.com/s/vxqsr7fjoffxm5w/model_regression_data.h5
-      os.system('wget --directory-prefix=test https://www.dropbox.com/s/4zcse4ja5aw3n6s/model_regression_data.h5')
+      # Old file (4/11/2023): https://www.dropbox.com/s/4zcse4ja5aw3n6s/model_regression_data.h5
+      os.system('wget --directory-prefix=test https://www.dropbox.com/s/h11saoud9v46w3w/model_regression_data.h5')
       #urllib.request.urlretrieve("https://www.dropbox.com/s/4zcse4ja5aw3n6s/model_regression_data.h5","test/model_regression_data.h5")
       fp_regression = h5py.File("test/model_regression_data.h5",'r') 
     regression_hash = md5("test/model_regression_data.h5")
@@ -311,7 +312,12 @@ def test_model_regression(generate_regression_data=False):
       p_mins = sur.param_space.min_vals()
       p_maxs = sur.param_space.max_vals()
  
-        
+    # NOTE: NRHybSur3dq8_CCE and NRHybSur3dq8 will report different max/min
+    #       because NRHybSur3dq8 defines its interval in q while NRHybSur3dq8_CCE
+    #       defines its interval in log(q). This change in the hdf5 file's
+    #       behavior is due a change in convert_to_gwsurrogate.py (building code).
+    #       Neither NRHybSur3dq8_CCE nor NRHybSur3dq8 use 
+    #       sur._sur_dimless.param_space for model evaluations. See ParamSpace's docstring
     print("parameter minimum values for model %s"%model,p_mins)
     print("parameter maximum values for model %s"%model,p_maxs)
 
