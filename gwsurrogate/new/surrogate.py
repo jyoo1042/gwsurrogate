@@ -703,7 +703,7 @@ class AlignedSpinCoOrbitalFrameSurrogate(ManyFunctionSurrogate):
         if not self.tapered_modes == None:
             for l,m in self.tapered_modes:
                 if (l,m) not in self.mode_list:
-                    raise Exception('(%d,%d) mode no in mode list'%(l,m))
+                    raise Exception('(%d,%d) mode not in mode list'%(l,m))
 
         super(AlignedSpinCoOrbitalFrameSurrogate, self).__init__(name,
                 domain, param_space, {}, many_function_components,
@@ -1058,11 +1058,12 @@ class AlignedSpinCoOrbitalFrameSurrogate(ManyFunctionSurrogate):
             phi22 = h_22[0]['phase']
             phi22_tapered = self._taper_phase(phi22)
             for l,m in self.tapered_modes:
-                  mode = (l,m)
-                  h_coorb_lm = h_coorb[mode][0]['re'] + 1j * h_coorb[mode][0]['im']
-                  h_coorb_lm *= np.exp(1j*m*(phi22-phi22_tapered)/2)
-                  h_coorb[mode][0]['re'] = np.real(h_coorb_lm)
-                  h_coorb[mode][0]['im'] = np.imag(h_coorb_lm)
+                mode = (l,m)
+                if mode in h_coorb.keys():
+                    h_coorb_lm = h_coorb[mode][0]['re'] + 1j * h_coorb[mode][0]['im']
+                    h_coorb_lm *= np.exp(1j*m*(phi22-phi22_tapered)/2)
+                    h_coorb[mode][0]['re'] = np.real(h_coorb_lm)
+                    h_coorb[mode][0]['im'] = np.imag(h_coorb_lm)
 
         return self._coorbital_to_inertial_frame(h_coorb, h_22, \
             mode_list, dtM, timesM, fM_low, fM_ref, do_not_align)

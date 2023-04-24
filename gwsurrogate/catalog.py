@@ -305,7 +305,7 @@ def pull(surr_name,sdir=download_path()):
   if file_name.split('.')[1] == 'tar': # assumed to be *.h5 or *.tar.gz
     surr_path = _unzip(file_name,sdir)
   else:
-    surr_path = sdir+file_name
+    surr_path = sdir+'/'+file_name
 
   return surr_path
 
