@@ -1,3 +1,6 @@
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.07073/status.svg)](https://doi.org/10.21105/joss.07073)
+
+
 # Welcome to GWSurrogate! #
 
 GWSurrogate is an easy to use interface to gravitational wave surrogate models.
