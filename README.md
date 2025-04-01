@@ -8,16 +8,11 @@ GWSurrogate is an easy to use interface to gravitational wave surrogate models.
 Surrogates provide a fast and accurate evaluation mechanism for gravitational
 waveforms which would otherwise be found through solving differential
 equations. These equations must be solved in the ``building" phase, which
-was performed using other codes. For details see
+was performed using other codes. 
 
-[1] Scott Field, Chad Galley, Jan Hesthaven, Jason Kaye, and Manuel Tiglio.
-`"Fast prediction and evaluation of gravitational waveforms using surrogate
-models". Phys. Rev. X 4, 031006 (2014). arXiv: gr-qc:1308.3565
-
-If you find this package useful in your work, please cite reference [1] and,
-if available, the relevant paper describing the specific surrogate used.
-
-All available models can be found in gwsurrogate.catalog.list()
+If this package contributes to a project that leads to a publication, 
+please acknowledge this by citing the relevant paper(s). Please see the 
+[How to Cite](https://github.com/sxs-collaboration/gwsurrogate/edit/master/README.md#how-to-cite) section at the bottom of this README file. 
 
 gwsurrogate is available at https://pypi.python.org
 
@@ -209,6 +204,21 @@ We welcome contributions! Here's how you can get involved:
    We use the [fork and pull request model](https://help.github.com/articles/creating-a-pull-request-from-a-fork/) for code contributions. Fork the repository, make your changes, and submit a pull request.
 
 Please ensure you follow our [Code of Conduct](https://github.com/sxs-collaboration/gwsurrogate?tab=coc-ov-file) when contributing. 
+
+# How to cite
+
+If this package contributes to a project that leads to a publication, please acknowledge this by citing the GWSurrogate article in JOSS. The paper has the following bibtex entry
+
+```
+ADD ME ONCE ITS IN INSPIRE
+````
+
+Please also cite the relevant paper(s) describing your specific model. This information can be found by doing 
+
+```python
+>>> import gwsurrogate
+>>> gwsurrogate.catalog.list(verbose=True) 
+```
 
 
 # NSF Support #
