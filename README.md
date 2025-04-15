@@ -210,7 +210,19 @@ Please ensure you follow our [Code of Conduct](https://github.com/sxs-collaborat
 If this package contributes to a project that leads to a publication, please acknowledge this by citing the GWSurrogate article in JOSS. The paper has the following bibtex entry
 
 ```
-ADD ME ONCE ITS IN INSPIRE
+@article{Field:2025isp,
+    author = "Field, Scott E. and Varma, Vijay and Blackman, Jonathan and Gadre, Bhooshan and Galley, Chad R. and Islam, Tousif and Mitman, Keefe and Pürrer, Michael and Ravichandran, Adhrit and Scheel, Mark A. and Stein, Leo C. and Yoo, Jooheon",
+    title = "{GWSurrogate: A Python package for gravitational wave surrogate models}",
+    eprint = "2504.08839",
+    archivePrefix = "arXiv",
+    primaryClass = "astro-ph.IM",
+    doi = "10.21105/joss.07073",
+    journal = "J. Open Source Softw.",
+    volume = "10",
+    number = "107",
+    pages = "7073",
+    year = "2025"
+}
 ````
 
 Please also cite the relevant paper(s) describing your specific model. This information can be found by doing 
